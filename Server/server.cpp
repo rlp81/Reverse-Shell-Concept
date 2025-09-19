@@ -2,13 +2,6 @@
 #include <iostream>
 #include <winsock2.h>
 #include <ws2tcpip.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <Windows.h>
-#pragma comment(lib, "ws2_32")
-
-
-
 
 using namespace std;
 
@@ -17,6 +10,7 @@ int main(){
     WORD version = MAKEWORD(2, 2);//assigning windows version 2.2
     SOCKET serverSocket = INVALID_SOCKET;
     sockaddr_in bind_info;
+    STARTUPINFOA sui;
     int port = 5555;
     std::string serverIP = "127.0.0.1";
     int connection_limit = 5;
@@ -39,7 +33,7 @@ int main(){
 
     //step 3: binding;
     bind_info.sin_family = AF_INET;
-    InetPton(AF_INET, __TEXT(serverIP), &bind_info.sin_addr.S_un);
+    InetPton(AF_INET, __TEXT("127.0.0.1"), &bind_info.sin_addr.S_un);
     bind_info.sin_port = htons(port);
     if(bind(serverSocket, (SOCKADDR*)&bind_info, sizeof(bind_info)) == SOCKET_ERROR){
         cout << "bind() failed: " << WSAGetLastError() << endl;
